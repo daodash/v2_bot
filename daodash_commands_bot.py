@@ -2,6 +2,8 @@ from ast import arg
 from discord.ext import commands
 import discord
 
+from get_data import community_health
+
 bot = commands.Bot(command_prefix='!')
 bot.remove_command('help')
 
@@ -76,9 +78,11 @@ async def members(ctx,*args):
     'table_request':args[0]+'_table',
     'days':args[1],
     'channel_id':'840982271309250590',
-    'user':ctx.author
+    'discord_role_ids':args[2],
+    'user':ctx.author.name
 }
         print (obj)
+        community_health(obj)
 
 
     ##bot will not respond to bot message
