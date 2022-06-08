@@ -1,6 +1,9 @@
 from ast import arg
 from discord.ext import commands
 import discord
+import datetime
+
+
 
 from get_data import community_health
 
@@ -69,6 +72,7 @@ async def daodash(ctx):
 
 @bot.command()
 async def members(ctx,*args):
+        start_time = str(datetime.datetime.now()).replace(":",".")
         params =  ','.join(args)
         print(args)
         
@@ -79,14 +83,17 @@ async def members(ctx,*args):
     'days':args[1],
     'channel_id':'840982271309250590',
     'discord_role_ids':args[2],
-    'user':ctx.author.name
+    'user':ctx.author.name,
+    'start_time':start_time
 }
-        print (obj)
+    
         community_health(obj)
+
+        filename = 'CommunityHealth - '+start_time +'.png'
 
 
     ##bot will not respond to bot message
-        await ctx.send('Hey @'+str(ctx.author)+', The data will be here soon',file=discord.File(r"images/CommunityHealth - 2022-05-31 14.14.17.370546.png"))
+        await ctx.send('Hey @'+str(ctx.author)+', Here is your requested chart \n\n',file=discord.File(r"images/"+filename))
 
 
 
