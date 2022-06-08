@@ -1,15 +1,15 @@
     # %%
 import pandas as pd
 import plotly.express as px
-import datetime
 
-start_time = str(datetime.datetime.now()).replace(":",".")
-print(start_time)
+
 
 def health_bar_chart(df,obj):
     #change days since active to a number
     print(obj)
+    active = obj['table_request'].split('_')[0].title()
 
+    print(df.iat[0,0])
 
     df['days_since_active']=df['days_since_active'].astype(float)
 
@@ -21,11 +21,11 @@ def health_bar_chart(df,obj):
         height=800,
         width=700,
         margin=dict(r=10, l=60, b=80, t=250),
-        title=("<b>"+str(obj['channel_id'])+" Channel - Community Health Report</b><br>" +
-            "<i>Requested by: aar0n<i><br>" +
-            "<i><b>Inactive</b> Users in last <b>"+str(obj['days'])+"</b> days <i><br>" +
+        title=("<b>"+str(df.iat[0,0])+" Channel - Community Health Report</b><br>" +
+            "<i>Requested by: "+obj['user']+"<i><br>" +
+            "<i><b>"+active+"</b> Users in last <b>"+str(obj['days'])+"</b> days <i><br>" +
             "<i>For users with role(s): "+str(obj['discord_role_ids'])+"<br>"+
-            "<i>Runtime:"+start_time+"<br><br>"),
+            "<i>Runtime:"+obj['start_time']+"<br><br>"),
         title_font_color="black",
         title_font_family="Arial",
         uniformtext_minsize=12,
@@ -59,10 +59,11 @@ def health_bar_chart(df,obj):
             xanchor="right", yanchor="bottom"
         )
     )
-    fig.show()
 
-    fig.write_image(r"images/CommunityHealth - "+start_time+".png")
-
+    fig.write_image(r"images/CommunityHealth - "+obj['start_time']+".png")
+    print (obj['start_time']+".png")
+    ##use file name to know what file to send
+   
 #df = pd.read_csv('test2.csv').round(2)
 
 # obj = {
