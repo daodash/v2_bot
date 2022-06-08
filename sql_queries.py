@@ -1,6 +1,18 @@
 
 
 def create_health_query(comm_inputs):
+
+    if len(comm_inputs['discord_role_ids']) >0:
+        append_string = f"""AND 
+    /*PYTHON PARAMETER  - WHERE STATEMENT FOR ROLE*/
+    dr.role_name IN ('{comm_inputs['discord_role_ids']}')
+    )'"""
+    else:
+        append_string=''
+
+
+
+
     return  f"""/* QUERY MESSAGES TABLE WITHIN PERIOD*/
     with active_user_messages as (
     SELECT m.channel_id,m.channel_name, m.TIMESTAMP, d.username as user,d.discord_user_id, EXTRACT( EPOCH FROM (CURRENT_DATE - m.TIMESTAMP))/86400  as activity_period FROM discord_messages m
@@ -23,7 +35,7 @@ def create_health_query(comm_inputs):
     r.active = True
     AND 
     /*PYTHON PARAMETER  - WHERE STATEMENT FOR ROLE*/
-    dr.discord_role_id = {comm_inputs['discord_role_ids']}
+    dr.role_name IN ('{comm_inputs['discord_role_ids']}')
     ),
 
 
@@ -61,7 +73,7 @@ def create_health_query(comm_inputs):
     u4.channel_name IS NOT NULL
     GROUP BY 1,2
     ORDER BY 3
-
+    LIMIT 25
     )
 
     select * from {comm_inputs['table_request']}
