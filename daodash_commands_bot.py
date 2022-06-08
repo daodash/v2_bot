@@ -74,18 +74,22 @@ async def daodash(ctx):
 async def members(ctx,*args):
         start_time = str(datetime.datetime.now()).replace(":",".")
         params =  ','.join(args)
-        print(args)
+        print(len(args))
         
         ##print(ctx.channel.id)
 
         obj = {
     'table_request':args[0]+'_table',
     'days':args[1],
-    'channel_id':'840982271309250590',
     'discord_role_ids':args[2],
+    'channel_id':'840982271309250590',
     'user':ctx.author.name,
     'start_time':start_time
 }
+
+        # if len(arg)]:
+        #     obj['discord_role_ids']=args[2]
+
     
         community_health(obj)
 
