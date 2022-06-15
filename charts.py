@@ -24,7 +24,7 @@ def health_bar_chart(df,obj):
         title=("<b>"+str(df.iat[0,0])+" Channel - Community Health Report</b><br>" +
             "<i>Requested by: "+obj['user']+"<i><br>" +
             "<i><b>"+active+"</b> Users in last <b>"+str(obj['days'])+"</b> days <i><br>" +
-            "<i>For users with role(s): "+str(obj['discord_role_ids'])+"<br>"+
+            "<i>For users with role(s): "+str(obj['discord_role_ids'].title())+"<br>"+
             "<i>Runtime:"+obj['start_time']+"<br><br>"),
         title_font_color="black",
         title_font_family="Arial",
