@@ -78,10 +78,18 @@ async def members(ctx,*args):
         
         ##print(ctx.channel.id)
 
+        ##argument 2 will not exist if roles aren't specified
+        if len(args)>2:
+            dri = args[2]
+        else:
+            dri = ''
+
+        print (dri)
+        ##object of values used in querying
         obj = {
     'days':args[1],
     'channel_id':'840982271309250590',
-    'discord_role_ids':args[2],
+    'discord_role_ids':dri,
     'table_request':args[0]+'_table',
     'start_time':start_time,
     'user':ctx.author.name,
@@ -91,7 +99,7 @@ async def members(ctx,*args):
         # if len(arg)]:
         #     obj['discord_role_ids']=args[2]
 
-    
+        ##function which kicks off db querying, chart creation
         community_health(obj)
 
         filename = 'CommunityHealth - '+start_time +'.png'
