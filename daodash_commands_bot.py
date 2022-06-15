@@ -2,6 +2,7 @@ from ast import arg
 from discord.ext import commands
 import discord
 import datetime
+from dependencies import token 
 
 
 
@@ -96,18 +97,15 @@ async def members(ctx,*args):
     
 }
 
-        # if len(arg)]:
-        #     obj['discord_role_ids']=args[2]
-
         ##function which kicks off db querying, chart creation
         community_health(obj)
 
         filename = 'CommunityHealth - '+start_time +'.png'
 
 
-    ##bot will not respond to bot message
+    ##bot sends message with file attached
         await ctx.send('Hey @'+str(ctx.author)+', Here is your requested chart \n\n',file=discord.File(r"images/"+filename))
 
 
 
-bot.run('OTgxMzkyMjM1MjE0MDE2NTQ1.GCIfgF.uBA-0BQQ9dpI8_diutXNf29KCOKH_33bgi9X2s')
+bot.run(token)
