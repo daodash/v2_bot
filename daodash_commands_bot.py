@@ -1,33 +1,15 @@
 from ast import arg
+
+#from sqlalchemy import null
 from discord.ext import commands
 import discord
 import datetime
 from dependencies import token 
+from get_data import *
 
-
-
-from get_data import community_health
 
 bot = commands.Bot(command_prefix='!')
 bot.remove_command('help')
-
-# @bot.command()
-# async def try(ctx):
-#     await ctx.send( ctx.guild)
-#     await ctx.send( ctx.author)
-#     await ctx.send( ctx.message.id)
-#     await ctx.send( ctx)
-
-
-@bot.command()
-async def name(ctx,arg1,arg2):
-    await ctx.send(f'{arg1} is the first value, {arg2} is the second value')
-
-@bot.command()
-async def values(ctx,*args):
-    all = ','.join(args)
-    print(args)
-    await ctx.send(f'here is {all}')
 
 
 @bot.command()
@@ -106,6 +88,27 @@ async def members(ctx,*args):
     ##bot sends message with file attached
         await ctx.send('Hey @'+str(ctx.author)+', Here is your requested chart \n\n',file=discord.File(r"images/"+filename))
 
+@bot.command()
+async def multisig(ctx,*args):
+    #create filename
+     start_time = str(datetime.datetime.now()).replace(":",".")
+     filename = 'Multisig - '+start_time +'.png'
 
+     if len(args)>1:
+            sd = args[1]
+     else:
+            sd = False
+
+     obj = {
+    'wallet':'0xdfdf2d882d9ebce6c7eac3da9ab66cbfda263781',
+    'start_date':sd,
+    'filename':filename,
+    'user':ctx.author.name
+    }
+
+     multisig_analysis(obj)
+
+
+     await ctx.send('Hey @'+str(ctx.author)+', Here is your requested chart \n\n '+str(obj))
 
 bot.run(token)
