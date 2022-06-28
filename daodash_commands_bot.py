@@ -92,7 +92,7 @@ async def members(ctx,*args):
 async def multisig(ctx,*args):
     #create filename
      start_time = str(datetime.datetime.now()).replace(":",".")
-     filename = 'Multisig - '+start_time +'.png'
+     filename = 'Multisig - '+start_time +'.csv'
 
      if len(args)>1:
             sd = args[1]
@@ -100,7 +100,7 @@ async def multisig(ctx,*args):
             sd = False
 
      obj = {
-    'wallet':'0xdfdf2d882d9ebce6c7eac3da9ab66cbfda263781',
+    'wallet':args[0],
     'start_date':sd,
     'filename':filename,
     'user':ctx.author.name
@@ -109,6 +109,6 @@ async def multisig(ctx,*args):
      multisig_analysis(obj)
 
 
-     await ctx.send('Hey @'+str(ctx.author)+', Here is your requested chart \n\n '+str(obj))
+     await ctx.send('Hey @'+str(ctx.author)+', Here is your requested data.',file=discord.File(r"data/"+filename))
 
 bot.run(token)

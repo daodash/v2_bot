@@ -27,18 +27,18 @@ def multisig_analysis(obj2):
 
     ##call database with updated sql string
     query_results = db_query(sql_string)
-    query_results.to_csv('multisigtest.csv')
+    query_results.to_csv(r"data/"+obj2['filename'])
 
 
 
 
 
 ##obj multisig
-obj2={
-    'wallet':'0xdfdf2d882d9ebce6c7eac3da9ab66cbfda263781',
-    'start_date':'2021-01-01',
-    'user':'aar0n'
-}  
+##obj2={
+#     'wallet':'0xdfdf2d882d9ebce6c7eac3da9ab66cbfda263781',
+#     'start_date':'2021-01-01',
+#     'user':'aar0n'
+# }  
 
 ##multisig(obj2)
 
