@@ -104,24 +104,36 @@ def create_multisig_query(ms_inputs):
     if ms_inputs['start_date']:
 
         return f""" 
-    select sg.from_address ,sg.to_address, sum(sg.amount_display), sg.timestamp_display from public.stg_subgraph_bank_1 sg
+    select sg.from_address ,sg.to_address, CASE when cn.discord_user_name IS NULL
+    THEN sg.to_address
+    ELSE cn.discord_user_name END as user,sum(sg.amount_display), sg.timestamp_display from public.stg_subgraph_bank_1 sg
 
-where from_address = '{ms_inputs['wallet']}'
+left join coordinape_nodes cn on
+        upper(sg.to_address) = upper(cn.address)
+
+where upper(from_address) = upper('{ms_inputs['wallet']}')
 
 and date(timestamp_display) >= '{ms_inputs['start_date']}'
 
 and date(CURRENT_DATE) <= CURRENT_DATE
 
-group by 1,2,4
+group by 1,2,3,5
 
 order by timestamp_display desc
 
     """
     else: 
         return f"""
-        select sg.from_address ,sg.to_address, sg.amount_display, sg.timestamp_display from public.stg_subgraph_bank_1 sg
+        select sg.from_address ,sg.to_address,CASE when cn.discord_user_name IS NULL
+    THEN sg.to_address
+    ELSE cn.discord_user_name END as user, sum(sg.amount_display), sg.timestamp_display from public.stg_subgraph_bank_1 sg
+        left join coordinape_nodes cn on
+        upper(sg.to_address) = upper(cn.address)
+where upper(from_address) = upper('{ms_inputs['wallet']}')
 
-where from_address = '{ms_inputs['wallet']}'
+and date(timestamp_display) >= NOW() - INTERVAL '30 DAYS'
+group by 1,2,3,5
 
-and date(timestamp_display) >= NOW() - INTERVAL '30 DAYS'"""
+order by timestamp_display desc
+"""
 
