@@ -57,7 +57,7 @@ async def members(ctx,*args):
 async def multisig(ctx,*args):
     #create filename
      start_time = str(datetime.datetime.now()).replace(":",".")
-     filename = 'Multisig - '+start_time +'.csv'
+     filename = 'Multisig - '+start_time +'.png'
 
 
      if args[0]=='help':
@@ -77,6 +77,8 @@ async def multisig(ctx,*args):
 
         multisig_analysis(obj)
 
-        await ctx.send('Hey @'+str(ctx.author)+', Here is your requested data.',file=discord.File(r"data/"+filename))
+        
+
+        await ctx.send('Hey @'+str(ctx.author)+', Here is your requested data.',file=discord.File(r"images/"+filename))
 
 bot.run(token)
