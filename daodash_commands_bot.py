@@ -17,44 +17,7 @@ bot.remove_command('help')
 @bot.command()
 async def daodash(ctx):
 
-    embed=discord.Embed(
-        title='DAO Dash Help',
-        description="""DAODash offers insights about your DAO’s health right here in Discord. 
-
-See below for the commands DAODash accepts. 
-
-Please enter any command followed by help to get more information on the command.
-
-Example: !members help
-""",
-        color = discord.Colour.red()
-    )
-
-    embed.add_field(
-        name='!members',
-        value='returns a sorted list of active or inactive members in channel.',
-        inline=False
-    )
-
-    embed.add_field(
-        name='!multisig',
-        value="""returns the wallets and amounts of DAO tokens that were distributed from a specific
-multisig address""",
-        inline=False
-    )
-
-    embed.add_field(
-        name='!snapshot',
-        value='returns metrics around community engagement in the last X votes',
-        inline=False
-    )
-    embed.add_field(
-        name='!roles',
-        value='returns data around users acquiring a specific DAO Discord role',
-        inline=False
-    )
-
-    await ctx.send(embed=embed)
+    await ctx.send(embed=daodash_embed)
 
 @bot.command()
 async def members(ctx,*args):

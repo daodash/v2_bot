@@ -1,5 +1,43 @@
 import discord
 
+###daodash embed
+daodash_embed=discord.Embed(
+        title='DAO Dash Help',
+        description="""DAODash offers insights about your DAO’s health right here in Discord. 
+
+See below for the commands DAODash accepts. 
+
+Please enter any command followed by help to get more information on the command.
+
+Example: !members help
+""",
+        color = discord.Colour.red()
+    )
+
+daodash_embed.add_field(
+        name='!members',
+        value='returns a sorted list of active or inactive members in channel.',
+        inline=False
+    )
+
+daodash_embed.add_field(
+        name='!multisig',
+        value="""returns the wallets and amounts of DAO tokens that were distributed from a specific
+multisig address""",
+        inline=False
+    )
+
+daodash_embed.add_field(
+        name='!snapshot',
+        value='returns metrics around community engagement in the last X votes',
+        inline=False
+    )
+daodash_embed.add_field(
+        name='!roles',
+        value='returns data around users acquiring a specific DAO Discord role',
+        inline=False
+    )
+
 
 ##member comamand embed
 member_help_embed=discord.Embed(
@@ -56,7 +94,7 @@ multisig_help_embed.add_field(
 
 multisig_help_embed.add_field(
         name='Example',
-        value="""!multisig 0xe7636c7ef670a3Bcf772D9d57244c9e88aD90437 06-01-2022 06-30-2022""",
+        value="""!multisig 0xe7636c7ef670a3Bcf772D9d57244c9e88aD90437 2022-06-01 2022-06-30""",
         inline=False
     )
 
