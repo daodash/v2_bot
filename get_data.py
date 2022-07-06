@@ -23,11 +23,16 @@ def community_health(obj):
 def multisig_analysis(obj2):
     ##update sql string with user parameters
     sql_string = create_multisig_query(obj2)
-    print(sql_string)
+    #print(sql_string)
 
     ##call database with updated sql string
     query_results = db_query(sql_string)
     query_results.to_csv(r"data/"+obj2['filename'])
+
+    ##create chart
+    multisig_sankey(query_results,obj2)
+
+
 
 
 
