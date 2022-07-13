@@ -87,7 +87,10 @@ def multisig_sankey(df,obj):
     ##build sankey chart
     fig =  go.Figure(
             go.Sankey(
-                node={"label": nodes.index},
+                node={"label": nodes.index,
+               "color":"red",
+               "pad":20
+               },
                 link={
                     "source": nodes.loc[df["from_address"]],
                     "target": nodes.loc[df["user"]],
@@ -95,6 +98,18 @@ def multisig_sankey(df,obj):
                 },
             )
         )
+    fig.update_layout(
+        height=800,
+        width=700,
+        margin=dict(r=10, l=60, b=80, t=100),
+        title=("<b>MultiSig Analysis for "+obj['wallet']+"</b><br>" +
+            "<i>Requested by: "+obj['user']+"<i><br>" +
+            "<i>Includes distributions since "+obj['start_date']+"<br>"+
+            "<i>Runtime:"+obj['start_time']+"<br><br>"),
+        title_font_color="black",
+        title_font_family="Arial",
+        uniformtext_minsize=12,
+        font_family="Arial")
     ##write image
     print(obj['filename'])
     fig.write_image(r"images/"+obj['filename'])
