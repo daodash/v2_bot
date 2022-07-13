@@ -8,9 +8,8 @@ def create_health_query(comm_inputs):
         print(submitted_roles)
         query_roles=[]
         i=1
-        print(str(len(submitted_roles)) + 'lenght')
+
         for r in submitted_roles:
-            print(len(submitted_roles))
     
             if i == len(submitted_roles):
                 print(str(i)+ ' i first')
@@ -30,9 +29,9 @@ def create_health_query(comm_inputs):
             
 
         append_string = f"""AND 
-    /*PYTHON PARAMETER  - WHERE STATEMENT FOR ROLE*/
-    dr.role_name IN ("""+role_string+f""")
-    """
+        /*PYTHON PARAMETER  - WHERE STATEMENT FOR ROLE*/
+        dr.role_name IN ("""+role_string+f""")
+        """
     else:
         append_string=''
 
@@ -67,7 +66,6 @@ def create_health_query(comm_inputs):
     ORDER BY 3
     ),
 
-
     /* QUERY MESSAGES TABLE OUTSIDE OF PERIOD*/
     inactive_user_messages as (
     SELECT m.channel_id,m.channel_name, m.TIMESTAMP, d.username as user,d.discord_user_id, EXTRACT( EPOCH FROM (CURRENT_DATE - m.TIMESTAMP))/86400  as activity_period FROM discord_messages m
@@ -79,7 +77,6 @@ def create_health_query(comm_inputs):
     /*PYTHON PARAMETER - WHERE STATEMENT FOR CHANNEL*/
     m.channel_id = {comm_inputs['channel_id']}
     ),
-
 
     /*Users with role who are inactive in activity period*/
 
@@ -94,7 +91,6 @@ def create_health_query(comm_inputs):
     ORDER BY 3
     LIMIT 25
     )
-
     select * from {comm_inputs['table_request']}
     """
 
@@ -104,36 +100,38 @@ def create_multisig_query(ms_inputs):
     if ms_inputs['start_date']:
 
         return f""" 
-    select sg.from_address ,sg.to_address, CASE when cn.discord_user_name IS NULL
-    THEN sg.to_address
-    ELSE cn.discord_user_name END as user,sum(sg.amount_display), sg.timestamp_display from public.stg_subgraph_bank_1 sg
-
-left join coordinape_nodes cn on
+        select sg.from_address ,sg.to_address, CASE when cn.discord_user_name IS NULL
+        THEN sg.to_address
+        ELSE cn.discord_user_name END as user,sum(sg.amount_display), sg.timestamp_display from public.stg_subgraph_bank_1 sg
+        left join coordinape_nodes cn on
         upper(sg.to_address) = upper(cn.address)
-
-where upper(from_address) = upper('{ms_inputs['wallet']}')
-
-and date(timestamp_display) >= '{ms_inputs['start_date']}'
-
-and date(CURRENT_DATE) <= CURRENT_DATE
-
-group by 1,2,3,5
-
-order by timestamp_display desc
-
-    """
+        where upper(from_address) = upper('{ms_inputs['wallet']}')
+        and date(timestamp_display) >= '{ms_inputs['start_date']}'
+        and date(CURRENT_DATE) <= CURRENT_DATE
+        group by 1,2,3,5
+        order by timestamp_display desc
+        """
     else: 
         return f"""
         select sg.from_address ,sg.to_address,CASE when cn.discord_user_name IS NULL
-    THEN sg.to_address
-    ELSE cn.discord_user_name END as user, sum(sg.amount_display), sg.timestamp_display from public.stg_subgraph_bank_1 sg
+        THEN sg.to_address
+        ELSE cn.discord_user_name END as user, sum(sg.amount_display), sg.timestamp_display from public.stg_subgraph_bank_1 sg
         left join coordinape_nodes cn on
         upper(sg.to_address) = upper(cn.address)
-where upper(from_address) = upper('{ms_inputs['wallet']}')
-
-and date(timestamp_display) >= NOW() - INTERVAL '30 DAYS'
-group by 1,2,3,5
-
-order by timestamp_display desc
+        where upper(from_address) = upper('{ms_inputs['wallet']}')
+        and date(timestamp_display) >= NOW() - INTERVAL '30 DAYS'
+        group by 1,2,3,5
+        order by timestamp_display desc
 """
 
+def create_snapshot_query(obj):
+    return f"""
+    select bsh.title, to_timestamp(bsh.start_date)::date as VoteStartDate,
+	count(voter) as Votes, sum(cast(bank_voting as decimal(15,2))) as BANK
+from bankless_snapshot_header_1 bsh 
+left join  stg_bankless_snapshot_1 sbs on
+	bsh.proposal_id = sbs.proposal_id 
+	group by 1,2
+order by VoteStartDate desc
+limit {obj['votes']}
+    """
