@@ -80,6 +80,13 @@ def health_bar_chart(df,obj):
 
 def multisig_sankey(df,obj):
 
+    ##updates text if there is a date parameter
+    if obj['start_date']:
+        timing_text="<i>Includes distributions since "+obj['start_date']+"<br>"
+    else:
+        timing_text="<i>Includes distributionsfor the last 30 days<br>"
+    
+
     df['user2'] = df['user'] + " - " + df['sum'].astype(int).astype('string')   ##set endpoints (from address to user)
     nodes = np.unique(df[["from_address","user2"]],axis=None)
     nodes = pd.Series(index=nodes, data=range(len(nodes)))
@@ -105,7 +112,7 @@ def multisig_sankey(df,obj):
         margin=dict(r=10, l=60, b=80, t=100),
         title=("<b>MultiSig Analysis for "+obj['wallet']+"</b><br>" +
             "<i>Requested by: "+obj['user']+"<i><br>" +
-            "<i>Includes distributions since "+obj['start_date']+"<br>"+
+            timing_text+
             "<i>Runtime:"+obj['start_time']+"<br><br>"),
         title_font_color="black",
         title_font_family="Arial",

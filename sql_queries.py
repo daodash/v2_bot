@@ -95,9 +95,11 @@ def create_health_query(comm_inputs):
     """
 
 def create_multisig_query(ms_inputs):
+    
 
 
     if ms_inputs['start_date']:
+        print('date range')
 
         return f""" 
         select sg.from_address ,sg.to_address, CASE when cn.discord_user_name IS NULL
@@ -112,13 +114,15 @@ def create_multisig_query(ms_inputs):
         order by timestamp_display desc
         """
     else: 
+        print('30 days')
+        print(ms_inputs)
         return f"""
         select sg.from_address ,sg.to_address,CASE when cn.discord_user_name IS NULL
         THEN sg.to_address
         ELSE cn.discord_user_name END as user, sum(sg.amount_display), sg.timestamp_display from public.stg_subgraph_bank_1 sg
         left join coordinape_nodes cn on
         upper(sg.to_address) = upper(cn.address)
-        where upper(from_address) = upper('{ms_inputs['wallet']}')
+        where upper(from_address) = upper('{str(ms_inputs['wallet'])}')
         and date(timestamp_display) >= NOW() - INTERVAL '30 DAYS'
         group by 1,2,3,5
         order by timestamp_display desc
