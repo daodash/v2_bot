@@ -135,7 +135,7 @@ def snapshot_chart(df,obj):
 
         height=700,
         width=700,
-        margin=dict(r=10, l=60, b=80, t=100),
+        margin=dict(r=10, l=60, b=80, t=200),
         title=dict(text="<b>Bankless DAO Proposal Voting History<br>" +
             "<i>Requested by: aar0n<i><br>" +
             "<i>Runtime:"+obj['start_time']+"<i><br><br>",
@@ -153,7 +153,18 @@ def snapshot_chart(df,obj):
         ),
         title_x=.5
     )
-    fig.update_layout(margin=dict(t=200))
+
+   
+
+    if len(df.index)<=5:
+        fig.update_layout(margin=dict(t=200))
+    
+    elif len(df.index)<=7:
+        fig.update_layout(margin=dict(t=250))
+        fig.update_traces(width=133000000,textfont_size=40, textangle=0, textposition="outside", cliponaxis=True)
+    else:
+        fig.update_traces(width=233000000,textfont_size=40, textangle=0, textposition="outside", cliponaxis=True)
+        fig.update_layout(margin=dict(t=300))
     ##https://www.geeksforgeeks.org/python-plotly-how-to-prevent-title-from-overlapping-the-plot/?ref=rp
 
     fig.write_image(r"images/"+obj['filename'])
