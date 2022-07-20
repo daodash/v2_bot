@@ -14,12 +14,12 @@ def community_health(obj):
     
     ##call database with updated sql string
     query_results = db_query(sql_string)
-    query_results.to_csv('testdata.csv')
     #print(query_results)
     
     ##create chart
     health_bar_chart(query_results,obj)
 
+##get multisig data
 def multisig_analysis(obj2):
     ##update sql string with user parameters
     sql_string = create_multisig_query(obj2)
@@ -27,10 +27,20 @@ def multisig_analysis(obj2):
 
     ##call database with updated sql string
     query_results = db_query(sql_string)
-    query_results.to_csv(r"data/"+obj2['filename'])
 
     ##create chart
     multisig_sankey(query_results,obj2)
+
+def snapshot_analysis(obj):
+        ##update sql string with user parameters
+    sql_string = create_snapshot_query(obj)
+    print(sql_string)
+
+    ##call database with updated sql string
+    query_results = db_query(sql_string)
+
+    ##create chart
+    snapshot_chart(query_results,obj)
 
 
 

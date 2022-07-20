@@ -161,9 +161,9 @@ def snapshot_chart(df,obj):
     
     elif len(df.index)<=7:
         fig.update_layout(margin=dict(t=250))
-        fig.update_traces(width=133000000,textfont_size=40, textangle=0, textposition="outside", cliponaxis=True)
-    else:
         fig.update_traces(width=233000000,textfont_size=40, textangle=0, textposition="outside", cliponaxis=True)
+    else:
+        fig.update_traces(width=293000000,textfont_size=40, textangle=0, textposition="outside", cliponaxis=True)
         fig.update_layout(margin=dict(t=300))
     ##https://www.geeksforgeeks.org/python-plotly-how-to-prevent-title-from-overlapping-the-plot/?ref=rp
 

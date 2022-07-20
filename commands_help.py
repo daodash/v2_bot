@@ -5,12 +5,11 @@ daodash_embed=discord.Embed(
         title='DAO Dash Help',
         description="""DAODash offers insights about your DAO’s health right here in Discord. 
 
-See below for the commands DAODash accepts. 
+                        See below for the commands DAODash accepts. 
 
-Please enter any command followed by help to get more information on the command.
+                        Please enter any command followed by help to get more information on the command.
 
-Example: !members help
-""",
+                        Example: !members help""",
         color = discord.Colour.red()
     )
 
@@ -23,13 +22,13 @@ daodash_embed.add_field(
 daodash_embed.add_field(
         name='!multisig',
         value="""returns the wallets and amounts of DAO tokens that were distributed from a specific
-multisig address""",
+                 multisig address""",
         inline=False
     )
 
 daodash_embed.add_field(
         name='!snapshot',
-        value='returns metrics around community engagement in the last X votes',
+        value='# of wallet addresses who have voted in each of the last <x> snapshot votes',
         inline=False
     )
 daodash_embed.add_field(
@@ -39,10 +38,10 @@ daodash_embed.add_field(
     )
 
 
-##member comamand embed
+##member command embed
 member_help_embed=discord.Embed(
         title='Command: !members',
-        description="""returns a sorted list of active or inactive members in channel.""",
+        description="""returns a sorted list of active or inactive members in channel. The channel is specific to where the user is sending the message.""",
         color = discord.Colour.red()
     )
 
@@ -56,15 +55,15 @@ member_help_embed.add_field(
         name='Parameters:',
         value="""[inactive|active] - determines whether active or inactive members will be returned.
 
-[activity_threshold] - determine the # of days that a user hasn’t commented in the channel to be considered in active. Default is 30. 
+                 [activity_threshold] - determine the # of days that a user hasn’t commented in the channel to be considered in active. Default is 30. 
 
-[discord_role(s)] - filters results to only include users with certain roles. Expression should be wrapped in quotes, roles separated by commas.""",
+                 [discord_role(s)] - filters results to only include users with certain roles. Expression should be wrapped in quotes, roles separated by commas.""",
         inline=False
     )
 
 member_help_embed.add_field(
         name='Example',
-        value="""!members active 10 “analytics_guild, guest pass”""",
+        value="""!members active 10 “Analytics Guild, Guest Pass”""",
         inline=False
     )
 
@@ -78,7 +77,7 @@ multisig_help_embed=discord.Embed(
 
 multisig_help_embed.add_field(
         name='Syntax',
-        value='!multisig multisig_address [start_date] [end_date]',
+        value='!multisig multisig_address start_date [end_date]',
         inline=False
     )
 
@@ -86,15 +85,41 @@ multisig_help_embed.add_field(
         name='Parameters:',
         value="""multisig_address - eth address of the multisig in 0x format 
 
-[start_date] - filters transfers to only include transfers that occurred after this date. Formatted as yyyy-mm-dd. Default is 30 days prior to today. 
+                [start_date] - filters transfers to only include transfers that occurred after this date. Formatted as yyyy-mm-dd. Default is 30 days prior to today. 
 
-[end_date] - filters transfers to only include transfers that occurred before this date. Formatted as yyyy-mm-dd. Default is today.""",
+                [end_date] - filters transfers to only include transfers that occurred before this date. Formatted as yyyy-mm-dd. Default is today.""",
         inline=False
     )
 
 multisig_help_embed.add_field(
         name='Example',
         value="""!multisig 0xe7636c7ef670a3Bcf772D9d57244c9e88aD90437 2022-06-01 2022-06-30""",
+        inline=False
+    )
+
+
+##multisig command embed
+snapshot_help_embed=discord.Embed(
+        title='Command: !snapshot',
+        description="""# of wallet addresses who have voted in each of the last <x> snapshot votes""",
+        color = discord.Colour.red()
+    )
+
+snapshot_help_embed.add_field(
+        name='Syntax',
+        value='!snapshot [number_of_proposals]',
+        inline=False
+    )
+
+snapshot_help_embed.add_field(
+        name='Parameters:',
+        value="""[number_of_proposals] - limits the results to the last number_of_proposals. Default is 5.""",
+        inline=False
+    )
+
+snapshot_help_embed.add_field(
+        name='Example',
+        value="""!snapshot 10""",
         inline=False
     )
 

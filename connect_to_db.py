@@ -1,5 +1,4 @@
 
-from dependencies import creds
 import psycopg2
 import pandas as pd
 import os
@@ -9,8 +8,6 @@ from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
 
-print(os.getenv('USER'))
-##print(creds)
 
 def db_query(sql_string):
 #connect to database

@@ -72,13 +72,41 @@ async def multisig(ctx,*args):
         'wallet':args[0],
         'start_date':sd,
         'filename':filename,
-        'user':ctx.author.name
+        'user':ctx.author.name,
+        'start_time':start_time
         }
 
         multisig_analysis(obj)
 
         
 
-        await ctx.send('Hey @'+str(ctx.author)+', Here is your requested data.',file=discord.File(r"images/"+filename))
+        await ctx.send('Hey @'+str(ctx.author)+', Here is your requested chart.',file=discord.File(r"images/"+filename))
+
+
+@bot.command()
+async def snapshot(ctx,*args):
+    #create filename
+     start_time = str(datetime.datetime.now()).replace(":",".")
+     filename = 'Snapshot - '+start_time +'.png'
+
+     if len(args)>0:
+        if args[0]=='help':
+            await ctx.send(embed=snapshot_help_embed)
+        else:
+             votes = args[0]
+     else: ##default is 5 if no parameter
+            votes = 5
+
+     obj = {
+        'votes':votes,
+        'filename':filename,
+        'user':ctx.author.name,
+        'start_time':start_time
+        }
+
+     snapshot_analysis(obj)
+        
+
+     await ctx.send('Hey @'+str(ctx.author)+', Here is your requested chart.',file=discord.File(r"images/"+filename))
 
 bot.run(token)
