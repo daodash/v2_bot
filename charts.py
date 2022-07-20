@@ -80,9 +80,10 @@ def health_bar_chart(df,obj):
 
 def multisig_sankey(df,obj):
 
-    ##set endpoints (from address to user)
-    nodes = np.unique(df[["from_address","user"]],axis=None)
+    df['user2'] = df['user'] + " - " + df['sum'].astype(int).astype('string')   ##set endpoints (from address to user)
+    nodes = np.unique(df[["from_address","user2"]],axis=None)
     nodes = pd.Series(index=nodes, data=range(len(nodes)))
+    print(df)
 
     ##build sankey chart
     fig =  go.Figure(
@@ -93,7 +94,7 @@ def multisig_sankey(df,obj):
                },
                 link={
                     "source": nodes.loc[df["from_address"]],
-                    "target": nodes.loc[df["user"]],
+                    "target": nodes.loc[df["user2"]],
                     "value": df["sum"],
                 },
             )
@@ -125,3 +126,34 @@ def multisig_sankey(df,obj):
 #         'user':'aaron'
 #         }
 # multisig_sankey(df,obj3)
+
+def snapshot_chart(df,obj):
+    df.to_csv(r"data/"+obj['filename'])
+
+    fig = px.bar(df,x='votes',y='votestartdate',color='title',title='title',barmode='group',text_auto=True)
+    fig.update_layout(
+
+        height=700,
+        width=700,
+        margin=dict(r=10, l=60, b=80, t=100),
+        title=dict(text="<b>Bankless DAO Proposal Voting History<br>" +
+            "<i>Requested by: aar0n<i><br>" +
+            "<i>Runtime:"+obj['start_time']+"<i><br><br>",
+            x=0.5,
+            y=0.95,
+            xanchor='center',
+            yanchor='top'),
+
+        title_font_color="black",
+        title_font_family="Arial",
+        uniformtext_minsize=24,
+        font_family="Arial",
+        legend=dict(
+            title=None, orientation="v", y=1, yanchor="bottom", x=0.5, xanchor="center"
+        ),
+        title_x=.5
+    )
+    fig.update_layout(margin=dict(t=200))
+    ##https://www.geeksforgeeks.org/python-plotly-how-to-prevent-title-from-overlapping-the-plot/?ref=rp
+
+    fig.write_image(r"images/"+obj['filename'])
