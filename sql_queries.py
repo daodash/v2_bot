@@ -139,3 +139,51 @@ left join  stg_bankless_snapshot_1 sbs on
 order by VoteStartDate desc
 limit {obj['votes']}
     """
+
+def create_users_query(obj):
+
+    submitted_roles = obj['roles'].split(',')
+
+    query_roles=[]
+    i=1
+
+    for r in submitted_roles:
+
+        if i == len(submitted_roles):
+            print(str(i)+ ' i first')
+            
+            print(i, r)
+            query_roles.append('\''+r.strip())
+            role_string = ''.join(query_roles)
+            
+        else:
+            print(i, r)
+            print(str(i)+ ' second')
+            query_roles.append('\''+r.strip()+'\',')
+            i+=1 
+            
+    role_string = ''.join(query_roles)  + '\'' 
+
+
+    return f"""
+        select 
+        date(dur.inserted_at) role_acquisition_date , 
+        dr.role_name, 
+        count(du.discord_user_id)
+        from 
+        discord_user du 
+        join discord_user_roles dur on du.discord_user_id  = dur.discord_user_id 
+        join discord_roles dr on dur.discord_role_id = dr.discord_role_id 
+        where 
+        dur.active = true
+        AND 
+
+        (date(dur.inserted_at) >= date_trunc('week', CURRENT_TIMESTAMP - interval '{obj['months']} month') and
+            date(dur.inserted_at) < date_trunc('week', CURRENT_TIMESTAMP)
+            )
+            
+        and role_name in ({role_string})
+        -- this is when user passes role
+        group by 1,2;
+            
+            """

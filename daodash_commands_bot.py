@@ -109,4 +109,24 @@ async def snapshot(ctx,*args):
 
      await ctx.send('Hey @'+str(ctx.author)+', Here is your requested chart.',file=discord.File(r"images/"+filename))
 
+
+
+
+@bot.command()
+async def roles(ctx,*args):
+    start_time = str(datetime.datetime.now()).replace(":",".")
+    filename = 'Users - '+start_time +'.png'
+
+    obj = {
+        'roles':args[1],
+        'months':args[0],
+        'filename':filename,
+        'user':ctx.author.name,
+        'start_time':start_time
+        }
+
+    roles_analysis(obj)
+
+    await ctx.send('Hey @'+str(ctx.author)+', Here is your requested chart.',file=discord.File(r"images/"+filename))
+
 bot.run(token)

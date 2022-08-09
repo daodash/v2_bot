@@ -144,7 +144,7 @@ def snapshot_chart(df,obj):
         width=700,
         margin=dict(r=10, l=60, b=80, t=200),
         title=dict(text="<b>Bankless DAO Proposal Voting History<br>" +
-            "<i>Requested by: aar0n<i><br>" +
+            "<i>Requested by: "+obj['user']+"<i><br>" +
             "<i>Runtime:"+obj['start_time']+"<i><br><br>",
             x=0.5,
             y=0.95,
@@ -175,3 +175,38 @@ def snapshot_chart(df,obj):
     ##https://www.geeksforgeeks.org/python-plotly-how-to-prevent-title-from-overlapping-the-plot/?ref=rp
 
     fig.write_image(r"images/"+obj['filename'])
+
+
+
+
+def roles_chart(df,obj):
+    fig = px.bar(df,x='role_acquisition_date',y='count',color='role_name',title='role_name',text_auto=True)
+    fig.update_layout(
+
+        height=700,
+        width=700,
+        margin=dict(r=10, l=60, b=80, t=150),
+        title=dict(text="<b>Bankless DAO User Roles<br>" +
+            "<i>New Users for "+obj['roles']+' roles, last '+obj['months'] +" months<i><br>" +
+            "<i>Requested by:"+obj['user']+"<i><br>" +
+            "<i>Runtime: "+obj['start_time']+"<i><br><br>",
+            x=0.5,
+            y=0.95,
+            xanchor='center',
+            yanchor='top'),
+
+        title_font_color="black",
+        title_font_family="Arial",
+        uniformtext_minsize=24,
+        font_family="Arial",
+        legend=dict(
+            title=None, orientation="v", y=1, yanchor="bottom", x=0.5, xanchor="center"
+        ),
+        title_x=.5
+    )
+    fig.write_image(r"images/"+obj['filename'])
+
+
+
+##https://www.geeksforgeeks.org/python-plotly-how-to-prevent-title-from-overlapping-the-plot/?ref=rp
+

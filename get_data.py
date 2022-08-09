@@ -44,7 +44,13 @@ def snapshot_analysis(obj):
 
 
 
+def roles_analysis(obj):
 
+    sql_string = create_users_query(obj)
+    print(sql_string)
+    query_results = db_query(sql_string)
+
+    roles_chart(query_results,obj)
 
 
 

@@ -123,4 +123,29 @@ snapshot_help_embed.add_field(
         inline=False
     )
 
+##multisig command embed
+roles_help_embed=discord.Embed(
+        title='Command: !roles',
+        description="""Count of new users who were assigned/taken on this role in the last X month""",
+        color = discord.Colour.red()
+    )
+
+roles_help_embed.add_field(
+        name='Syntax',
+        value='!roles [discord_role(s)] ',
+        inline=False
+    )
+
+roles_help_embed.add_field(
+        name='Parameters:',
+        value="""[discord_role(s)] - filters results to only include users with certain roles. Expression should be wrapped in quotes, roles separated by commas.""",
+        inline=False
+    )
+
+roles_help_embed.add_field(
+        name='Example',
+        value="""!roles 2 “Analytics Guild, Guest Pass”""",
+        inline=False
+    )
+
 
