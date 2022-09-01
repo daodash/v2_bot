@@ -140,6 +140,12 @@ order by VoteStartDate desc
 limit {obj['votes']}
     """
 
+def role_activity_query(obj):
+   return"""  select
+days_since_latest_touchpoint_bin, role_list, discord_user_id
+from vw_user_analytics user_analytics;"""
+
+
 def create_users_query(obj):
 
     submitted_roles = obj['roles'].split(',')

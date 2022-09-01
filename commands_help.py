@@ -31,6 +31,12 @@ daodash_embed.add_field(
         value='# of wallet addresses who have voted in each of the last <x> snapshot votes',
         inline=False
     )
+
+daodash_embed.add_field(
+        name='!activity',
+        value='returns a summary of users (who hold the requested roles) who have been active in specific time periods',
+        inline=False
+    )
 daodash_embed.add_field(
         name='!roles',
         value='returns data around users acquiring a specific DAO Discord role',
@@ -126,25 +132,50 @@ snapshot_help_embed.add_field(
 ##multisig command embed
 roles_help_embed=discord.Embed(
         title='Command: !roles',
-        description="""Count of new users who were assigned/taken on this role in the last X month""",
+        description="""Count of new users who were assigned/taken on this role in the last X months""",
         color = discord.Colour.red()
     )
 
 roles_help_embed.add_field(
         name='Syntax',
-        value='!roles [discord_role(s)] ',
+        value='!roles [# of months] [discord_role(s)] ',
         inline=False
     )
 
 roles_help_embed.add_field(
         name='Parameters:',
-        value="""[discord_role(s)] - filters results to only include users with certain roles. Expression should be wrapped in quotes, roles separated by commas.""",
+        value=""" [months] - number of months of datato include output
+        [discord_role(s)] - filters results to only include users with certain roles. Expression should be wrapped in quotes, roles separated by commas.""",
         inline=False
     )
 
 roles_help_embed.add_field(
         name='Example',
         value="""!roles 2 “Analytics Guild, Guest Pass”""",
+        inline=False
+    )
+
+roles_activity_embed=discord.Embed(
+        title='Command: !activity',
+        description="""This insight is focused on understanding more macro trends - understanding the overall pattern of engagement in DAO/specific role.""",
+        color = discord.Colour.red()
+    )
+
+roles_activity_embed.add_field(
+        name='Syntax',
+        value='!activity [discord_role(s)] ',
+        inline=False
+    )
+
+roles_activity_embed.add_field(
+        name='Parameters:',
+        value="""[discord_role(s)] - filters results to only include users with certain roles. Expression should be wrapped in quotes, roles separated by commas.""",
+        inline=False
+    )
+
+roles_activity_embed.add_field(
+        name='Example',
+        value="""!activity “Analytics Guild, Writers Guild”""",
         inline=False
     )
 

@@ -176,7 +176,35 @@ def snapshot_chart(df,obj):
 
     fig.write_image(r"images/"+obj['filename'])
 
+def role_activity_chart(df,obj):
+    fig = px.bar(df,x='days_since_latest_touchpoint_bin',y='role_list',color='days_since_latest_touchpoint_bin',title='role_list',text_auto=True)
+    fig.update_layout(
 
+        height=700,
+        width=700,
+        margin=dict(r=10, l=60, b=80, t=150),
+        title=dict(text="<b>Roles Activity - "+obj['roles']+" <br>" +
+            "<i>Requested by: "+obj['user']+"<i><br>" +
+            "<i>Runtime:"+obj['start_time']+" <i><br><br>",
+            x=0.5,
+            y=0.95,
+            xanchor='center',
+            yanchor='top'),
+
+        title_font_color="black",
+        title_font_family="Arial",
+        uniformtext_minsize=24,
+        font_family="Arial",
+        legend=dict(
+            title=None, orientation="h", y=1, yanchor="bottom", x=0.5, xanchor="center"
+        ),
+        title_x=.5
+    )
+    
+    fig.update_xaxes(categoryorder='array', categoryarray=["Over 90 Days", "61 - 90 Days", "31 - 60 Days", "16 - 30 Days","8 - 15 Days", "4 - 7 Days","0 - 3 Days"])
+    fig.update_traces(textfont_size=10, textangle=0, textposition="outside", cliponaxis=True)
+
+    fig.write_image(r"images/"+obj['filename'])
 
 
 def roles_chart(df,obj):

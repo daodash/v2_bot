@@ -43,6 +43,29 @@ def snapshot_analysis(obj):
     snapshot_chart(query_results,obj)
 
 
+def role_activity(obj):
+    sql_string = role_activity_query(obj)
+    print(sql_string)
+
+    ##call database with updated sql string
+    df = db_query(sql_string)
+
+    ##filter for specific roles
+    df['role_list'] = df['role_list'].str.lower() #convert roles_list field to lowercase
+    lookup = "|".join(obj['roles'].split(',')).lower() #combining keywords with logical OR "|"
+    print(obj['roles'].split(','))
+    print(lookup)
+    df_filter = df[df['role_list'].str.contains(lookup,na=False)]
+    ##remove first 3 characters
+    df_filter['days_since_latest_touchpoint_bin'] = df_filter['days_since_latest_touchpoint_bin'].str[3:]
+    df_pivot = df_filter.groupby(['days_since_latest_touchpoint_bin']).count().reset_index()
+
+        
+    
+    ##create chart
+    role_activity_chart(df_pivot,obj)
+
+
 
 def roles_analysis(obj):
 
