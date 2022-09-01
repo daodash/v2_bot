@@ -9,11 +9,12 @@ from get_data import *
 
 from commands_help import *
 
-intents1 = discord.Intents.default()
-intents1.message_content = True
+intents = discord.Intents.default()
+intents.message_content = True
 
-bot = commands.Bot(command_prefix='!',intents=intents1)
+bot = commands.Bot(command_prefix='!',intents=intents)
 bot.remove_command('help')
+
 
 
 @bot.command()
