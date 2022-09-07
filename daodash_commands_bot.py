@@ -42,7 +42,7 @@ async def members(ctx,*args):
             ##object of values used in querying
             obj = {
             'days':args[1],
-            'channel_id':'840982271309250590',
+            'channel_id':ctx.channel.id,
             'discord_role_ids':dri,
             'table_request':args[0]+'_table',
             'start_time':start_time,
