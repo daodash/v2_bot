@@ -83,7 +83,7 @@ multisig_help_embed=discord.Embed(
 
 multisig_help_embed.add_field(
         name='Syntax',
-        value='!multisig multisig_address start_date [end_date]',
+        value='!multisig multisig_address start_date',
         inline=False
     )
 
@@ -91,15 +91,13 @@ multisig_help_embed.add_field(
         name='Parameters:',
         value="""multisig_address - eth address of the multisig in 0x format 
 
-                [start_date] - filters transfers to only include transfers that occurred after this date. Formatted as yyyy-mm-dd. Default is 30 days prior to today. 
-
-                [end_date] - filters transfers to only include transfers that occurred before this date. Formatted as yyyy-mm-dd. Default is today.""",
+                [start_date] - filters transfers to only include transfers that occurred after this date. Formatted as yyyy-mm-dd. Default is 30 days prior to today. """,
         inline=False
     )
 
 multisig_help_embed.add_field(
         name='Example',
-        value="""!multisig 0xe7636c7ef670a3Bcf772D9d57244c9e88aD90437 2022-06-01 2022-06-30""",
+        value="""!multisig 0xe7636c7ef670a3Bcf772D9d57244c9e88aD90437 2022-06-01""",
         inline=False
     )
 
