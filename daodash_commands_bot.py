@@ -9,9 +9,12 @@ from get_data import *
 
 from commands_help import *
 
+intents = discord.Intents.default()
+intents.message_content = True
 
-bot = commands.Bot(command_prefix='!')
+bot = commands.Bot(command_prefix='!',intents=intents)
 bot.remove_command('help')
+
 
 
 @bot.command()
@@ -39,7 +42,7 @@ async def members(ctx,*args):
             ##object of values used in querying
             obj = {
             'days':args[1],
-            'channel_id':'840982271309250590',
+            'channel_id':ctx.channel.id,
             'discord_role_ids':dri,
             'table_request':args[0]+'_table',
             'start_time':start_time,
@@ -111,22 +114,45 @@ async def snapshot(ctx,*args):
 
 
 
+@bot.command()
+async def activity(ctx,*args):
+    start_time = str(datetime.datetime.now()).replace(":",".")
+    filename = 'Users - '+start_time +'.png'
+
+    if args[0]=='help':
+        await ctx.send(embed=roles_activity_embed)
+
+    else: 
+        obj = {
+            'roles':args[0],
+            'filename':filename,
+            'user':ctx.author.name,
+            'start_time':start_time
+            }
+        role_activity(obj)
+        await ctx.send('Hey @'+str(ctx.author)+', Here is your requested chart.',file=discord.File(r"images/"+filename))
+
+
+
+
 
 @bot.command()
 async def roles(ctx,*args):
     start_time = str(datetime.datetime.now()).replace(":",".")
     filename = 'Users - '+start_time +'.png'
 
-    obj = {
-        'roles':args[1],
-        'months':args[0],
-        'filename':filename,
-        'user':ctx.author.name,
-        'start_time':start_time
-        }
+    if args[0]=='help':
+        await ctx.send(embed=roles_help_embed)
 
-    roles_analysis(obj)
-
-    await ctx.send('Hey @'+str(ctx.author)+', Here is your requested chart.',file=discord.File(r"images/"+filename))
+    else: 
+        obj = {
+            'roles':args[1],
+            'months':args[0],
+            'filename':filename,
+            'user':ctx.author.name,
+            'start_time':start_time
+            }
+        roles_analysis(obj)
+        await ctx.send('Hey @'+str(ctx.author)+', Here is your requested chart.',file=discord.File(r"images/"+filename))
 
 bot.run(token)
