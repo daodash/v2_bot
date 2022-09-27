@@ -75,6 +75,13 @@ def roles_analysis(obj):
 
     roles_chart(query_results,obj)
 
+def discourse_analysis(obj):
+
+    sql_string = discourse_query(obj)
+    print(sql_string)
+    query_results = db_query(sql_string)
+
+    #discourse_chart(query_results,obj)
 
 
 ##obj multisig
