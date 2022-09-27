@@ -92,7 +92,7 @@ def discourse_analysis(obj):
 
 ##multisig(obj2)
 
-##object with parameters
+##object with parameters  
 # obj = {
 #     'days':10,
 #     'channel_id':'840982271309250590',
