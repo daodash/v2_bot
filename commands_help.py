@@ -178,3 +178,15 @@ roles_activity_embed.add_field(
     )
 
 
+##discourse embed
+discourse_help_embed=discord.Embed(
+        title='Command: !discourse',
+        description="""In Progress""",
+        color = discord.Colour.red()
+    )
+
+discourse_help_embed.add_field(
+        name='Syntax',
+        value=' ',
+        inline=False
+    )
