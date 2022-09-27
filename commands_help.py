@@ -43,6 +43,13 @@ daodash_embed.add_field(
         inline=False
     )
 
+daodash_embed.add_field(
+        name='!discourse',
+        value='tbd',
+        inline=False
+    )
+
+
 
 ##member command embed
 member_help_embed=discord.Embed(
