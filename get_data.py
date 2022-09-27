@@ -83,13 +83,12 @@ def discourse_analysis(obj):
 
     #discourse_chart(query_results,obj)
 
-
 ##obj multisig
 ##obj2={
 #     'wallet':'0xdfdf2d882d9ebce6c7eac3da9ab66cbfda263781',
 #     'start_date':'2021-01-01',
 #     'user':'aar0n'
-# }  
+# } 
 
 ##multisig(obj2)
 
