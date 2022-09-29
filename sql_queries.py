@@ -171,25 +171,15 @@ def create_users_query(obj):
     role_string = ''.join(query_roles)  + '\'' 
 
 
-    return f"""
-        select 
-        date(dur.inserted_at) role_acquisition_date , 
-        dr.role_name, 
-        count(du.discord_user_id)
-        from 
-        discord_user du 
-        join discord_user_roles dur on du.discord_user_id  = dur.discord_user_id 
-        join discord_roles dr on dur.discord_role_id = dr.discord_role_id 
-        where 
-        dur.active = true
-        AND 
+    return f"""Select discord_role_name as role_name,role_activated_at_date as role_acquisition_date , count(role_activated_at_date ) from vw_discord_active_user_roles 
+WHERE 
 
-        (date(dur.inserted_at) >= date_trunc('week', CURRENT_TIMESTAMP - interval '{obj['months']} month') and
-            date(dur.inserted_at) < date_trunc('week', CURRENT_TIMESTAMP)
-            )
-            
-        and role_name in ({role_string})
-        -- this is when user passes role
-        group by 1,2;
-            
-            """
+ role_activated_at_date >= date_trunc('week', CURRENT_TIMESTAMP - interval '{obj['months']}' month')
+ and
+ role_activated_at_date < date_trunc('week', CURRENT_TIMESTAMP)
+AND 
+discord_role_name IN ({role_string})
+GROUP BY 1 ,2"""
+
+def discourse_query(obj):
+    return "This will work soon!"
