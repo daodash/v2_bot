@@ -159,20 +159,30 @@ async def roles(ctx,*args):
 @bot.command()
 async def soft_votes(ctx,*args):
     start_time = str(datetime.datetime.now()).replace(":",".")
-    filename = 'Users - '+start_time +'.png'
+    filename = 'Soft_votes - '+start_time +'.png'
 
     if args[0]=='help':
         await ctx.send(embed=discourse_help_embed)
+    
+    if len(args>1):
+        r=True
+        sd = args[0]
+        ed=args[1]
 
-    else: 
-        obj = {
-            'roles':args[1],
-            'months':args[0],
+    else:
+        r=False
+        sd=''
+        ed=''
+
+    obj = {
             'filename':filename,
             'user':ctx.author.name,
-            'start_time':start_time
+            'start_time':start_time,
+            'range':r,
+            'start_date':sd,
+            'end_date':ed
             }
-        roles_analysis(obj)
-        await ctx.send('Hey @'+str(ctx.author)+', Here is your requested chart.',file=discord.File(r"images/"+filename))
+    discourse_analysis(obj)
+    await ctx.send('Hey @'+str(ctx.author)+', Here is your requested chart.',file=discord.File(r"images/"+filename))
 
 bot.run(token)
