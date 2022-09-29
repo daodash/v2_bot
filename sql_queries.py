@@ -174,7 +174,7 @@ def create_users_query(obj):
     return f"""Select discord_role_name as role_name,role_activated_at_date as role_acquisition_date , count(role_activated_at_date ) from vw_discord_active_user_roles 
 WHERE 
 
- role_activated_at_date >= date_trunc('week', CURRENT_TIMESTAMP - interval '{obj['months']}' month')
+ role_activated_at_date >= date_trunc('week', CURRENT_TIMESTAMP - interval '{obj['months']} month')
  and
  role_activated_at_date < date_trunc('week', CURRENT_TIMESTAMP)
 AND 
