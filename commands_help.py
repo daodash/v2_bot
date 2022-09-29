@@ -187,13 +187,13 @@ roles_activity_embed.add_field(
 
 ##discourse embed
 discourse_help_embed=discord.Embed(
-        title='Command: !discourse',
-        description="""In Progress""",
+        title='Command: !soft_votes',
+        description="""Get a high-level “snapshot” of soft-votes submitted through Discourse over a time period. """,
         color = discord.Colour.red()
     )
 
 discourse_help_embed.add_field(
         name='Syntax',
-        value=' ',
+        value='!soft_votes [start-date] [end-date] (If no range, default is most recent month)',
         inline=False
     )
