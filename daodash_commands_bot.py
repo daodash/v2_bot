@@ -159,30 +159,33 @@ async def roles(ctx,*args):
 @bot.command()
 async def soft_votes(ctx,*args):
     start_time = str(datetime.datetime.now()).replace(":",".")
-    filename = 'Soft_votes - '+start_time +'.png'
-
-    if args[0]=='help':
-        await ctx.send(embed=discourse_help_embed)
-    
-    if len(args>1):
-        r=True
-        sd = args[0]
-        ed=args[1]
-
-    else:
-        r=False
-        sd=''
-        ed=''
+    filename = 'Soft_votes - '+start_time +'.csv'
+    print(str(len(args)) + ' -- length')
 
     obj = {
             'filename':filename,
             'user':ctx.author.name,
-            'start_time':start_time,
-            'range':r,
-            'start_date':sd,
-            'end_date':ed
-            }
-    discourse_analysis(obj)
-    await ctx.send('Hey @'+str(ctx.author)+', Here is your requested chart.',file=discord.File(r"images/"+filename))
+            'start_time':start_time
+     }
+
+    ##send help menu
+    if len(args)>0 and args[0] =='help':
+        await ctx.send(embed=discourse_help_embed)
+
+    ##query sql with date range
+    elif len(args)>0:
+        obj['range']=True
+        obj['start_date'] = args[0]
+        obj['end_date']=args[1]
+        discourse_analysis(obj)
+        await ctx.send('Hey @'+str(ctx.author)+', Here is your requested chart.',file=discord.File(r"images/"+filename))
+    ##query sql for last month
+    else:
+        obj['range']=False
+        obj['start_date']=''
+        obj['end_date']=''
+        discourse_analysis(obj)
+        await ctx.send('Hey @'+str(ctx.author)+', Here is your requested chart.',file=discord.File(r"images/"+filename))
+
 
 bot.run(token)
