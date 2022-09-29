@@ -157,7 +157,7 @@ async def roles(ctx,*args):
 
 
 @bot.command()
-async def discourse(ctx,*args):
+async def soft_votes(ctx,*args):
     start_time = str(datetime.datetime.now()).replace(":",".")
     filename = 'Users - '+start_time +'.png'
 
