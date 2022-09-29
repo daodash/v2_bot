@@ -183,7 +183,7 @@ GROUP BY 1 ,2"""
 
 def discourse_query(obj):
 
-    if obj['r']:
+    if obj['range']:
         return f"""select
  dt.title as topic,
  date(dt.created_at) as date,
@@ -195,9 +195,9 @@ from discourse_topics dt
  join discourse_polls dpl on dp.id = dpl.post_id
  join discourse_poll_votes dpv on dpl.id = dpv.poll_id
 where 
-dt.created_at >=  date('{obj['sd']}')
+dt.created_at >=  date('{obj['start_date']}')
 AND 
-dt.created_at <=  date('{obj['ed']}')
+dt.created_at <=  date('{obj['end_date']}')
         """
     else:
         return f"""select
