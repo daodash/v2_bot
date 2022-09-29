@@ -44,8 +44,8 @@ daodash_embed.add_field(
     )
 
 daodash_embed.add_field(
-        name='!discourse',
-        value='tbd',
+        name='!soft_votes',
+        value='Get a high-level “snapshot” of soft-votes submitted through Discourse over a time period.',
         inline=False
     )
 
@@ -188,7 +188,7 @@ roles_activity_embed.add_field(
 ##discourse embed
 discourse_help_embed=discord.Embed(
         title='Command: !soft_votes',
-        description="""Get a high-level “snapshot” of soft-votes submitted through Discourse over a time period. """,
+        description="""Get a high-level “snapshot” of soft-votes submitted through Discourse over a time period.""",
         color = discord.Colour.red()
     )
 
