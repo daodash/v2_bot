@@ -81,6 +81,10 @@ def discourse_analysis(obj):
     print(sql_string)
     query_results = db_query(sql_string)
 
+    query_results.to_csv('images/'+obj['filename'])
+
+
+
     #discourse_chart(query_results,obj)
 
 ##obj multisig 
