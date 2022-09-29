@@ -182,4 +182,33 @@ discord_role_name IN ({role_string})
 GROUP BY 1 ,2"""
 
 def discourse_query(obj):
-    return "This will work soon!"
+
+    if obj['r']:
+        return f"""select
+ dt.title as topic,
+ date(dt.created_at) as date,
+ dpl.title as poll_name,
+ dpv.vote_option,
+ dpv.votes_count 
+from discourse_topics dt
+ join discourse_posts dp on dt.id = dp.topic_id
+ join discourse_polls dpl on dp.id = dpl.post_id
+ join discourse_poll_votes dpv on dpl.id = dpv.poll_id
+where 
+dt.created_at >=  date('{obj['sd']}')
+AND 
+dt.created_at <=  date('{obj['ed']}')
+        """
+    else:
+        return f"""select
+ dt.title as topic,
+ date(dt.created_at) as date,
+ dpl.title as poll_name,
+ dpv.vote_option,
+ dpv.votes_count 
+from discourse_topics dt
+ join discourse_posts dp on dt.id = dp.topic_id
+ join discourse_polls dpl on dp.id = dpl.post_id
+ join discourse_poll_votes dpv on dpl.id = dpv.poll_id
+where dt.created_at >= current_date-30;""" 
+
