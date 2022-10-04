@@ -81,7 +81,9 @@ def discourse_analysis(obj):
     print(sql_string)
     query_results = db_query(sql_string)
 
-    query_results.to_csv('images/'+obj['filename'])
+    voteschart(query_results,obj)
+
+    ##query_results.to_csv('images/'+obj['filename'])
 
 
 

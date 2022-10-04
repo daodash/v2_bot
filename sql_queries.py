@@ -188,7 +188,7 @@ def discourse_query(obj):
  dt.title as topic,
  date(dt.created_at) as date,
  dpl.title as poll_name,
- sum(dpv.votes_count) 
+ sum(dpv.votes_count) as votes_count
 from discourse_topics dt
  join discourse_posts dp on dt.id = dp.topic_id
  join discourse_polls dpl on dp.id = dpl.post_id
@@ -204,7 +204,7 @@ GROUP BY 1,2,3
  dt.title as topic,
  date(dt.created_at) as date,
  dpl.title as poll_name,
- sum(dpv.votes_count)
+ sum(dpv.votes_count) as votes_count
 from discourse_topics dt
  join discourse_posts dp on dt.id = dp.topic_id
  join discourse_polls dpl on dp.id = dpl.post_id

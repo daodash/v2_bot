@@ -244,7 +244,7 @@ def voteschart(df,obj):
         margin=dict(r=10, l=60, b=80, t=250),
         title=("<b>Discourse Votes</b><br>" +
             "<i>Requested by: "+obj['user']+"<i><br>" +
-            "<i>Vote Activity on Discourse"+
+            "<i>Vote Activity on Discourse<br>"+
             "<i>Runtime:"+obj['start_time']+"<br><br>"),
         title_font_color="black",
         title_font_family="Arial",

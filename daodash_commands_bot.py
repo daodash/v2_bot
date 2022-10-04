@@ -159,7 +159,7 @@ async def roles(ctx,*args):
 @bot.command()
 async def soft_votes(ctx,*args):
     start_time = str(datetime.datetime.now()).replace(":",".")
-    filename = 'Soft_votes - '+start_time +'.csv'
+    filename = 'Soft_votes - '+start_time +'.png'
     print(str(len(args)) + ' -- length')
 
     obj = {
