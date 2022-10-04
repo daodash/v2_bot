@@ -235,6 +235,54 @@ def roles_chart(df,obj):
     fig.write_image(r"images/"+obj['filename'])
 
 
+def voteschart(df,obj):
+    fig = px.bar(df,x='date',y='votes_count',orientation='v',text_auto=True)
+    fig.update_layout(
+        bargroupgap=.08,
+        height=800,
+        width=700,
+        margin=dict(r=10, l=60, b=80, t=250),
+        title=("<b>Discourse Votes</b><br>" +
+            "<i>Requested by: "+obj['user']+"<i><br>" +
+            "<i>Vote Activity on Discourse"+
+            "<i>Runtime:"+obj['start_time']+"<br><br>"),
+        title_font_color="black",
+        title_font_family="Arial",
+        uniformtext_minsize=12,
+        font_family="Arial"
+        
+    )
+
+    fig.update_traces(
+        marker_color='red',
+        textposition='outside',
+        marker_line_color='rgb(0,0,0)',
+        marker_line_width=1.5,)
+        
+    ## add images
+    fig.add_layout_image(
+        dict(
+            source=r'images\bankless-logo.png',
+            xref="paper", yref="paper",
+            x=1, y=1.05,
+            sizex=0.2, sizey=0.2,
+            xanchor="right", yanchor="bottom"
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=r'images\daodashlogo.jpg',
+            xref="paper", yref="paper",
+            x=.8, y=1.07,
+            sizex=0.15, sizey=0.15,
+            xanchor="right", yanchor="bottom"
+        )
+    )
+    fig.write_image(r"images/"+obj['filename'])
+    
+
+
 
 ##https://www.geeksforgeeks.org/python-plotly-how-to-prevent-title-from-overlapping-the-plot/?ref=rp
 
